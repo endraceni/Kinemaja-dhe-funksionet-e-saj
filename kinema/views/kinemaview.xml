@@ -1,0 +1,513 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_salla_form" model="ir.ui.view">
+            <field name="name">salla.form</field>
+            <field name="model">salla.salla</field>
+            <field name="arch" type="xml">
+                <form string="Salla">
+                        <group>
+                            <field name = "name"/>
+                            <field name = "kapaciteti"/>
+                            <field name = "info_shtese"/>
+                            <field name = "state"/>
+                        </group>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_salla_tree" model="ir.ui.view">
+            <field name="name">salla.tree</field>
+            <field name="model">salla.salla</field>
+            <field name="arch" type="xml">
+                <tree string="Salla">
+                           <field name = "name"/>
+                            <field name = "kapaciteti"/>
+                            <field name = "info_shtese"/>
+                            <field name = "state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_salla_search" model="ir.ui.view">
+            <field name="name">salla.search</field>
+            <field name="model">salla.salla</field>
+            <field name="arch" type="xml">
+                <search string="Salla">
+                            <field name = "name"/>
+                            <field name = "kapaciteti"/>
+                            <field name = "info_shtese"/>
+                            <field name = "state"/>
+                </search>
+            </field>
+        </record>
+
+
+        <record id="open_view_salla_tree" model="ir.actions.act_window">
+            <field name="name">Salla</field>
+            <field name="res_model">salla.salla</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_salla_tree"/>
+            <field name="search_view_id" ref="view_salla_search"/>
+        </record>
+
+         <!-- Ktu mbaron Salla  Salla   Salla   Salla   Salla   Salla   Salla   Salla   Salla   Salla   Salla   Salla   Salla -->
+
+        <record id="view_shfaqje_form" model="ir.ui.view">
+            <field name="name">shfaqje.form</field>
+            <field name="model">shfaqje.filmi</field>
+            <field name="arch" type="xml">
+                <form string="Shfaqje">
+                   <header>
+                       <button name = "draft" string = "Drafto" type="object" states ="aktive,anulluar,perfunduar"/>
+                       <button name = "aktive" string = "Aktivizo" type="object" states ="draft,anulluar,perfunduar"/>
+                       <button name = "anulluar" string = "Anullo" type="object"  states ="draft"/>
+                       <button name = "perfunduar" string = "Perfundo" type="object"  states ="aktive"/>
+                       <field name="state" widget="statusbar" statusbar_visible="draft,aktive,anulluar,perfunduar" class="oe_highlight"/>
+                    </header>
+
+                    <group>
+                        <field name="name"/>
+                        <field name="id_salla" domain="[('state', '=', 'e lire')]"/>
+                        <field name="id_film"/>
+                        <field name="ora_fillimit"/>
+                        <field name="ora_perfundimit"/>
+                        <field name = "bileta_id"/>
+                        </group>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_shfaqje_tree" model="ir.ui.view">
+            <field name="name">shfaqje.tree</field>
+            <field name="model">shfaqje.filmi</field>
+            <field name="arch" type="xml">
+
+                <tree string="Shfaqje">
+                           <field name = "name"/>
+                            <field name = "id_salla"/>
+                            <field name = "id_film"/>
+                            <field name = "ora_fillimit"/>
+                            <field name = "ora_perfundimit"/>
+                            <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+
+        <record id="view_shfaqje_search" model="ir.ui.view">
+            <field name="name">shfaqje.search</field>
+            <field name="model">shfaqje.filmi</field>
+            <field name="arch" type="xml">
+                <search string="Shfaqje">
+                           <field name = "name"/>
+                            <field name = "id_salla" />
+                            <field name = "id_film"/>
+                            <field name = "ora_fillimit"/>
+                            <field name = "ora_perfundimit"/>
+                </search>
+            </field>
+        </record>
+
+
+        <record id="open_view_shfaqje_tree" model="ir.actions.act_window">
+            <field name="name">Shfaqje</field>
+            <field name="res_model">shfaqje.filmi</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_shfaqje_tree"/>
+            <field name="search_view_id" ref="view_shfaqje_search"/>
+         <!--   <field name = "help" type = "html"><a href = "#rezervim">Rezervo</a></field> -->
+        </record>
+
+         <!-- Ktu mbaron Shfaqje  Shfaqje  Shfaqje  Shfaqje  Shfaqje  Shfaqje Shfaqje  Shfaqje  Shfaqje Shfaqje Shfaqje-->
+
+        <record id="view_bileta_form" model="ir.ui.view">
+            <field name="name">bileta.form</field>
+            <field name="model">bileta.bileta</field>
+            <field name="arch" type="xml">
+                <form string="Bileta">
+                        <group>
+                            <field name = "serial_no"/>
+                            <field name = "shfaqje_id"/>
+                            <field name = "state"/>
+                            <button name="show_rezervim" string="Rezervo Bileten" type="object" state="rezervuar" />
+                            <!--<button name="%(open_view_rezervim_tree)d" type="action" string="Rezervvv" />-->
+                        </group>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_bileta_tree" model="ir.ui.view">
+            <field name="name">bileta.tree</field>
+            <field name="model">bileta.bileta</field>
+            <field name="arch" type="xml">
+                <tree string="Bileta">
+                           <field name = "serial_no"/>
+                            <field name = "shfaqje_id"/>
+                            <field name = "state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_bileta_search" model="ir.ui.view">
+            <field name="name">bileta.search</field>
+            <field name="model">bileta.bileta</field>
+            <field name="arch" type="xml">
+                <search string="Bileta">
+                           <field name = "serial_no"/>
+                            <field name = "shfaqje_id"/>
+                            <field name = "state"/>
+                </search>
+            </field>
+        </record>
+
+
+        <record id="open_view_bileta_tree" model="ir.actions.act_window">
+            <field name="name">Bileta</field>
+            <field name="res_model">bileta.bileta</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_bileta_tree"/>
+            <field name="search_view_id" ref="view_bileta_search"/>
+        </record>
+
+        <!---Ktu mbaron  BILETA BILETA BILETA BILETA BILETA  BILETA BILETA BILETA BILETA BILETA -->
+
+        <record id="view_film_form" model="ir.ui.view">
+            <field name="name">film.form</field>
+            <field name="model">film.film</field>
+            <field name="arch" type="xml">
+                <form string="Filmi">
+                        <group>
+                            <field name = "img" widget="image" string = "Image" class="oe_avatar"/>
+                            <field name = "id_kategori"/>
+                            <field name = "name"/>
+                            <field name = "imdb_rate"/>
+                            <field name = "aktore"/>
+                            <field name = "regjizori"/>
+                            <field name = "permbajtja"/>
+                            <field name = "viti_prodhimit"/>
+                            <field name = "gjuha"/>
+                            <field name = "premiere"/>
+                        </group>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_film_tree" model="ir.ui.view">
+            <field name="name">film.tree</field>
+            <field name="model">film.film</field>
+            <field name="arch" type="xml">
+                <tree string="Filmi">
+                          <field name = "id_kategori"/>
+                            <field name = "name"/>
+                            <field name = "imdb_rate" widget="selection"/>
+                            <field name = "aktore"/>
+                            <field name = "regjizori"/>
+                            <field name = "permbajtja"/>
+                            <field name = "viti_prodhimit"/>
+                            <field name = "gjuha"/>
+                            <field name = "premiere"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_film_search" model="ir.ui.view">
+            <field name="name">film.search</field>
+            <field name="model">film.film</field>
+            <field name="arch" type="xml">
+                <search string="Filmi">
+                           <field name = "id_kategori"/>
+                            <field name = "name"/>
+                            <field name = "imdb_rate"/>
+                            <field name = "aktore"/>
+                            <field name = "regjizori"/>
+                            <field name = "permbajtja"/>
+                            <field name = "viti_prodhimit"/>
+                            <field name = "gjuha"/>
+                            <field name = "premiere"/>
+                </search>
+            </field>
+        </record>
+
+
+        <record id="view_film_kanban" model="ir.ui.view">
+                <field name="name">film.kanban</field>
+                <field name="model">film.film</field>
+                <field name="priority">10</field>
+                <field name="arch" type="xml">
+                    <kanban class="o_hr_employee_kanban">
+                        <templates>
+                            <t t-name="kanban-box">
+                            <div class="oe_kanban_global_click">
+                                <div class="oe_kanban_details">
+                                    <div class="o_kanban_record_top">
+                                        <div class="o_kanban_image">
+                                            <img t-att-src="kanban_image('film.film', 'img', record.id.value)"/>
+                                        </div>
+                                        <div class="o_kanban_record_headings">
+                                            <strong class="o_kanban_record_title">
+                                                <field name="name"/>
+                                            </strong>
+                                            <span class="o_kanban_record_subtitle"><field name="id_kategori"/></span>
+                                        </div>
+                                    </div>
+
+                                    <ul>
+                                        <li id="last_login"/>
+                                        <li><field name="imdb_rate"/></li>
+                                        <li><field name="viti_prodhimit"/></li>
+                                        <li><field name="permbajtja"/></li>
+                                        <li> <field name="premiere"/></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            </t>
+                        </templates>
+                    </kanban>
+                </field>
+            </record>
+
+
+        <record id="open_view_film_tree" model="ir.actions.act_window">
+            <field name="name">Filmi</field>
+            <field name="res_model">film.film</field> <!-- i njejte me _name tek klasa e student -->
+            <field name="view_type">form</field>
+            <field name="view_mode">kanban,tree,form</field>
+            <field name="view_id" ref="view_film_tree"/>
+            <field name="search_view_id" ref="view_film_search"/>
+        </record>
+
+         <!-- Ktu mbaron FILMI FILMI  FILMI  FILMI FILMI FILMI FILMI FILMI FILMI FILMI FILMI FILMI FILMI FILMI FILMI -->
+
+         <record id="seq_rezervim_filmi" model="ir.sequence">
+            <field name="name">Rezervim_sequencer</field>
+            <field name="code">rezervim.filmi</field>
+            <field name="prefix">RZ</field>
+            <field name="padding">3</field>
+        </record>
+
+         <record id="view_rezervim_form" model="ir.ui.view">
+            <field name="name">rezervim.form</field>
+            <field name="model">rezervim.filmi</field>
+            <field name="arch" type="xml">
+                <form string="Rezervuar">
+                         <header>
+                        <button name="regjistruar" string="Regjistruar" type="object"/>
+                       <button name = "rezervuar" string = "Rezervo" type="object" />
+                       <button name = "konfirmuar" string = "Konfirmo" type="object"/>
+                       <button name = "anulluar" string = "Anullo" type="object" />
+                       <field name="state" widget="statusbar" statusbar_visible="regjistruar,rezervuar,konfirmuar,anulluar" class="oe_highlight"/>
+                    </header>
+                        <group>
+                            <field name = "emer_rezervimi"/>
+                            <field name = "shfaqje_id" domain="[('state', '=', 'aktive')]"/>
+                            <field name = "bileta_nr"/>
+                            <field name = "orar_fillimi"/>
+                            <field name = "orar_perfundimit"/>
+                            <field name="payed"/>
+                        </group>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_rezervim_tree" model="ir.ui.view">
+            <field name="name">rezervim.tree</field>
+            <field name="model">rezervim.filmi</field>
+            <field name="arch" type="xml">
+                <tree string="Rezervim">
+                            <field name = "emer_rezervimi"/>
+                            <field name = "shfaqje_id"/>
+                            <field name = "bileta_nr"/>
+                            <field name = "orar_fillimi"/>
+                            <field name = "orar_perfundimit"/>
+                            <field name = "state"/>
+                            <field name="payed"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_rezervim_search" model="ir.ui.view">
+            <field name="name">rezervim.search</field>
+            <field name="model">rezervim.filmi</field>
+            <field name="arch" type="xml">
+                <search string="Rezervim">
+                            <field name = "emer_rezervimi"/>
+                            <field name = "shfaqje_id"/>
+                            <field name = "bileta_nr"/>
+                            <field name = "orar_fillimi"/>
+                            <field name = "orar_perfundimit"/>
+                            <field name = "state"/>
+                            <field name="payed"/>
+                </search>
+            </field>
+        </record>
+
+
+        <record id="open_view_rezervim_tree" model="ir.actions.act_window">
+            <field name="name">Rezervim</field>
+            <field name="res_model">rezervim.filmi</field>
+            <field name="view_type">form</field>
+            <field name="src_model">rezervim.filmi</field>
+            <field name="view_mode">tree,form</field>
+            <field name="target">new</field>
+            <field name="context"/>
+            <field name="view_id" ref="view_rezervim_tree"/>
+            <field name="search_view_id" ref="view_rezervim_search"/>
+        </record>
+
+
+         <!--Ktu mbaron Rezervimi  Rezervimi Rezervimi Rezervimi Rezervimi Rezervimi Rezervimi Rezervimi Rezervimi-->
+
+        <record id="view_kategori_form" model="ir.ui.view">
+            <field name="name">kategori.form</field>
+            <field name="model">kategori.kategori</field>
+            <field name="arch" type="xml">
+                <form string="Kategori">
+                        <group>
+                            <field name = "name"/>
+                            <field name="film_id"/>
+                        </group>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_kategori_tree" model="ir.ui.view">
+            <field name="name">kategori.tree</field>
+            <field name="model">kategori.kategori</field>
+            <field name="arch" type="xml">
+                <tree string="Kategori">
+                            <field name = "name"/>
+                            <field name="film_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_kategori_search" model="ir.ui.view">
+            <field name="name">kategori.search</field>
+            <field name="model">kategori.kategori</field>
+            <field name="arch" type="xml">
+                <search string="Kategori">
+                           <field name = "name"/>
+                            <field name="film_id"/>
+                </search>
+            </field>
+        </record>
+
+
+        <record id="open_view_kategori_tree" model="ir.actions.act_window">
+            <field name="name">Kategori</field>
+            <field name="res_model">kategori.kategori</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_kategori_tree"/>
+            <field name="search_view_id" ref="view_kategori_search"/>
+        </record>
+
+        <!-- Ktu Mbaron KATEGORIA KATEGORIA KATEGORIA KATEGORIA KATEGORIA KATEGORIA KATEGORIA KATEGORIA KATEGORIA KATEGORIA KATEGORIA KATEGORIA -->
+
+        <record id="view_user_form" model="ir.ui.view">
+            <field name="name">user.form</field>
+            <field name="model">user.user</field>
+            <field name="arch" type="xml">
+                <form string="User">
+                        <group>
+                            <field name = "name"/>
+                            <field name = "mbiemri"/>
+                            <field name = "email"/>
+                            <field name = "phone"/>
+                        </group>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_user_tree" model="ir.ui.view">
+            <field name="name">user.tree</field>
+            <field name="model">user.user</field>
+            <field name="arch" type="xml">
+                <tree string="User">
+                            <field name = "name"/>
+                            <field name = "mbiemri"/>
+                            <field name = "email"/>
+                            <field name = "phone"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_user_search" model="ir.ui.view">
+            <field name="name">user.search</field>
+            <field name="model">user.user</field>
+            <field name="arch" type="xml">
+                <search string="User">
+                           <field name = "name"/>
+                            <field name = "mbiemri"/>
+                            <field name = "email"/>
+                            <field name = "phone"/>
+                </search>
+            </field>
+        </record>
+
+
+        <record id="open_view_user_tree" model="ir.actions.act_window">
+            <field name="name">User</field>
+            <field name="res_model">user.user</field> <!-- i njejte me _name tek klasa e student -->
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_user_tree"/>
+            <field name="search_view_id" ref="view_user_search"/>
+        </record>
+
+         <!---Ktu mbaron Useri-->
+
+     <!--<menuitem id="main_menu_kinema" name = "Kinema"/>-->
+
+        <menuitem
+            id="menu_open_view_salla"
+            action="open_view_salla_tree"
+            web_icon="kinema, static/description/cinema_logo.png"/>
+            sequence="1" />
+
+        <menuitem
+            id="menu_open_view_shfaqje"
+            action="open_view_shfaqje_tree"
+            web_icon="kinema, static/description/cinema_logo.png"/>
+            sequence="1"/>
+
+
+        <menuitem
+            id="menu_open_view_bileta"
+            action="open_view_bileta_tree"
+            web_icon="kinema, static/description/cinema_logo.png"/>
+            sequence="1" />
+
+        <menuitem
+            id="menu_open_view_film"
+            action="open_view_film_tree"
+            web_icon="kinema, static/description/cinema_logo.png"/>
+            sequence="1" />
+
+        <menuitem
+            id="menu_open_view_rezervim"
+            action="open_view_rezervim_tree"
+            web_icon="kinema, static/description/cinema_logo.png"/>
+            sequence="1" />
+
+        <!--<menuitem id="menu_open_rezervim"-->
+                  <!--action="-->
+
+        <menuitem
+            id="menu_open_view_kategori"
+            action="open_view_kategori_tree"
+            web_icon="kinema, static/description/cinema_logo.png"/>
+            sequence="1" />
+
+        <menuitem
+            id="menu_open_view_user"
+            action="open_view_user_tree"
+            sequence="1" />
+
+
+    </data>
+</odoo>
