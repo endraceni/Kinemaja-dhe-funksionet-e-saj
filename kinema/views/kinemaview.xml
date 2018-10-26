@@ -60,7 +60,7 @@
             <field name="arch" type="xml">
                 <form string="Shfaqje">
                    <header>
-                       <button name = "draft" string = "Drafto" type="object" states ="aktive,anulluar,perfunduar"/>
+                       <button name = "draft" string = "Draft" type="object" states ="aktive,anulluar,perfunduar"/>
                        <button name = "aktive" string = "Aktivizo" type="object" states ="draft,anulluar,perfunduar"/>
                        <button name = "anulluar" string = "Anullo" type="object"  states ="draft"/>
                        <button name = "perfunduar" string = "Perfundo" type="object"  states ="aktive"/>
@@ -73,6 +73,8 @@
                         <field name="id_film"/>
                         <field name="ora_fillimit"/>
                         <field name="ora_perfundimit"/>
+                        <field name="bileta_sh"/>
+                        <field name="bileta_gjendje"/>
                         <field name = "bileta_id"/>
                         </group>
                 </form>
@@ -91,6 +93,8 @@
                             <field name = "ora_fillimit"/>
                             <field name = "ora_perfundimit"/>
                             <field name="state"/>
+                            <field name="bileta_sh"/>
+                            <field name="bileta_gjendje"/>
                 </tree>
             </field>
         </record>
@@ -133,7 +137,7 @@
                             <field name = "shfaqje_id"/>
                             <field name = "state"/>
                             <button name="show_rezervim" string="Rezervo Bileten" type="object" state="rezervuar" />
-                            <!--<button name="%(open_view_rezervim_tree)d" type="action" string="Rezervvv" />-->
+
                         </group>
                 </form>
             </field>
@@ -182,8 +186,8 @@
                 <form string="Filmi">
                         <group>
                             <field name = "img" widget="image" string = "Image" class="oe_avatar"/>
-                            <field name = "id_kategori"/>
                             <field name = "name"/>
+                            <field name = "kategori"/>
                             <field name = "imdb_rate"/>
                             <field name = "aktore"/>
                             <field name = "regjizori"/>
@@ -201,8 +205,8 @@
             <field name="model">film.film</field>
             <field name="arch" type="xml">
                 <tree string="Filmi">
-                          <field name = "id_kategori"/>
                             <field name = "name"/>
+                            <field name = "kategori"/>
                             <field name = "imdb_rate" widget="selection"/>
                             <field name = "aktore"/>
                             <field name = "regjizori"/>
@@ -219,8 +223,8 @@
             <field name="model">film.film</field>
             <field name="arch" type="xml">
                 <search string="Filmi">
-                           <field name = "id_kategori"/>
                             <field name = "name"/>
+                            <field name = "kategori"/>
                             <field name = "imdb_rate"/>
                             <field name = "aktore"/>
                             <field name = "regjizori"/>
@@ -248,7 +252,7 @@
                                             <strong class="o_kanban_record_title">
                                                 <field name="name"/>
                                             </strong>
-                                            <span class="o_kanban_record_subtitle"><field name="id_kategori"/></span>
+                                            <span class="o_kanban_record_subtitle"><field name = "kategori"/></span>
                                         </div>
                                     </div>
 
@@ -301,7 +305,8 @@
                         <group>
                             <field name = "emer_rezervimi"/>
                             <field name = "shfaqje_id" domain="[('state', '=', 'aktive')]"/>
-                            <field name = "bileta_nr"/>
+                            <field name = "bileta_id" domain="[('state', '=', 'free')]"/>
+                            <field name="bileta_nr"/>
                             <field name = "orar_fillimi"/>
                             <field name = "orar_perfundimit"/>
                             <field name="payed"/>
@@ -317,7 +322,8 @@
                 <tree string="Rezervim">
                             <field name = "emer_rezervimi"/>
                             <field name = "shfaqje_id"/>
-                            <field name = "bileta_nr"/>
+                            <field name = "bileta_id"/>
+                            <field name="bileta_nr"/>
                             <field name = "orar_fillimi"/>
                             <field name = "orar_perfundimit"/>
                             <field name = "state"/>
@@ -333,7 +339,8 @@
                 <search string="Rezervim">
                             <field name = "emer_rezervimi"/>
                             <field name = "shfaqje_id"/>
-                            <field name = "bileta_nr"/>
+                            <field name = "bileta_id"/>
+                            <field name="bileta_nr"/>
                             <field name = "orar_fillimi"/>
                             <field name = "orar_perfundimit"/>
                             <field name = "state"/>
@@ -357,53 +364,6 @@
 
 
          <!--Ktu mbaron Rezervimi  Rezervimi Rezervimi Rezervimi Rezervimi Rezervimi Rezervimi Rezervimi Rezervimi-->
-
-        <record id="view_kategori_form" model="ir.ui.view">
-            <field name="name">kategori.form</field>
-            <field name="model">kategori.kategori</field>
-            <field name="arch" type="xml">
-                <form string="Kategori">
-                        <group>
-                            <field name = "name"/>
-                            <field name="film_id"/>
-                        </group>
-                </form>
-            </field>
-        </record>
-
-        <record id="view_kategori_tree" model="ir.ui.view">
-            <field name="name">kategori.tree</field>
-            <field name="model">kategori.kategori</field>
-            <field name="arch" type="xml">
-                <tree string="Kategori">
-                            <field name = "name"/>
-                            <field name="film_id"/>
-                </tree>
-            </field>
-        </record>
-
-        <record id="view_kategori_search" model="ir.ui.view">
-            <field name="name">kategori.search</field>
-            <field name="model">kategori.kategori</field>
-            <field name="arch" type="xml">
-                <search string="Kategori">
-                           <field name = "name"/>
-                            <field name="film_id"/>
-                </search>
-            </field>
-        </record>
-
-
-        <record id="open_view_kategori_tree" model="ir.actions.act_window">
-            <field name="name">Kategori</field>
-            <field name="res_model">kategori.kategori</field>
-            <field name="view_type">form</field>
-            <field name="view_mode">tree,form</field>
-            <field name="view_id" ref="view_kategori_tree"/>
-            <field name="search_view_id" ref="view_kategori_search"/>
-        </record>
-
-        <!-- Ktu Mbaron KATEGORIA KATEGORIA KATEGORIA KATEGORIA KATEGORIA KATEGORIA KATEGORIA KATEGORIA KATEGORIA KATEGORIA KATEGORIA KATEGORIA -->
 
         <record id="view_user_form" model="ir.ui.view">
             <field name="name">user.form</field>
@@ -493,12 +453,6 @@
 
         <!--<menuitem id="menu_open_rezervim"-->
                   <!--action="-->
-
-        <menuitem
-            id="menu_open_view_kategori"
-            action="open_view_kategori_tree"
-            web_icon="kinema, static/description/cinema_logo.png"/>
-            sequence="1" />
 
         <menuitem
             id="menu_open_view_user"
